@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- APPENDER 1: CONSOLE -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{dd-MMM HH:mm:ss:SSS}] - [%-5level] - %F:%L - %m%n" />
+        </Console>
+
+        <!-- APPENDER 2: ROLLING FILE -->
+        <RollingFile name="AppenderTwo" fileName="target/logs/zzSuiteLog.log"
+                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d{dd-MMM HH:mm:ss:SSS}] - [%-5level] - %F:%L - %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+        </RollingFile>
+
+        <!-- APPENDER 3: ROUTING APPENDER -->
+        <Routing name="AppenderThree">
+            <Routes pattern="${ctx:threadName}">
+                <!-- Route Nr.1 -->
+                <Route>
+                    <!-- Rolling file appender for route Nr.1 -->
+                    <RollingFile name="NestedAppender-${ctx:threadName}" fileName="target/logs/${ctx:threadName}.log"
+                                 filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+                        <PatternLayout>
+                            <Pattern>[%d{dd-MMM HH:mm:ss:SSS}] - [%-5level] - %F:%L - %m%n</Pattern>
+                        </PatternLayout>
+                        <Policies>
+                            <TimeBasedTriggeringPolicy />
+                            <SizeBasedTriggeringPolicy size="10 MB" />
+                        </Policies>
+                    </RollingFile>
+                </Route>
+
+                <!-- Route Nr.2 fallback -->
+                <!-- By having this set to ${ctx:filename} it will match when filename is not set in the context -->
+                <Route ref="AppenderTwo" key="${ctx:threadName}" />
+            </Routes>
+        </Routing>
+
+
+    </Appenders>
+    <Loggers>
+
+        <Logger name="ConsoleLog" additivity="false" level="off">
+            <AppenderRef ref="Console" />
+        </Logger>
+
+        <Root level="off">
+            <AppenderRef ref="AppenderTwo" />
+            <AppenderRef ref="AppenderThree" />
+        </Root>
+
+    </Loggers>
+</Configuration>

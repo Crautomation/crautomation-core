@@ -1,0 +1,43 @@
+# Maven build
+target/
+
+# Allure
+.allure
+allure-report
+allure-results
+
+# External Tool Builders
+.externalToolBuilders/
+
+# General / Misc
+tmp/
+*.bak
+*~.nib
+*.pyc
+*.swp
+.idea/
+*.iml
+*.ipr
+*.iws
+.orig
+*/*/*.iml
+.gradle
+.java-version
+*nbproject*
+
+# Eclipse specific
+.project
+*/.project/
+.settings
+.settings/*
+*/.settings/
+.cache
+*.pmd
+.loadpath
+.classpath
+*/.classpath/
+.metadata/
+*/.metadata/
+
+# Mac Specific
+*DS_Store*
