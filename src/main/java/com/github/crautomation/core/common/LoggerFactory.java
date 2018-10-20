@@ -1,5 +1,7 @@
 package com.github.crautomation.core.common;
 
+import com.github.crautomation.core.common.properties.SystemProperty;
+import com.github.crautomation.core.ui.driver.constants.SupportedBrowsers;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -83,10 +85,18 @@ public class LoggerFactory
      */
     private String generateFormattedLogFileName()
     {
-        String name = testName.replace("com.eposnow.testautomation.", "");
-        String threadNumber = Thread.currentThread().getName()
-                .replace("TestNG-PoolService-", "Thread-");
+        String name = testName.replace("com.github.crautomation.", "");
+        String threadNumber = "";
 
-        return String.format("%s_%s", name, threadNumber);
+        if(SystemProperty.BROWSER.getValue()
+                .equalsIgnoreCase(SupportedBrowsers.CHROME.toString())) {
+            threadNumber = Thread.currentThread().getName()
+                    .replace("TestNG-test=Surefire test-", "test-");
+
+            return String.format("%s_%s", name, threadNumber);
+
+        } else {
+            return name;
+        }
     }
 }

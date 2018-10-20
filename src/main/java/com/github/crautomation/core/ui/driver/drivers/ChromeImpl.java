@@ -28,7 +28,7 @@ public class ChromeImpl extends DriverBase
     @Override
     protected void generateDriverConfig()
     {
-        suppressChromeOutputs();
+        suppressDriverOutputs();
 
         if(TestPlatform.isGrid())
         {
@@ -64,7 +64,7 @@ public class ChromeImpl extends DriverBase
     }
 
     /**
-     * Sets the system property for the local ChromeDriver.exe path
+     * Sets the system property for the local chromedriver.exe path
      */
     @Override
     protected void setDriverPath()
@@ -74,9 +74,10 @@ public class ChromeImpl extends DriverBase
 
 
     /**
-     * Suppresses the Chrome and Selenium outputs in the console during test execution.
+     * Suppresses the Chrome outputs in the console during test execution.
      */
-    private void suppressChromeOutputs()
+    @Override
+    protected void suppressDriverOutputs()
     {
         System.setProperty("webdriver.chrome.silentOutput", "true");
     }

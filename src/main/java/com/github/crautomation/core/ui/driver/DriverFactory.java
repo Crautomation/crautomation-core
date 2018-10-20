@@ -3,6 +3,7 @@ package com.github.crautomation.core.ui.driver;
 import com.github.crautomation.core.common.properties.SystemProperty;
 import com.github.crautomation.core.ui.driver.constants.SupportedBrowsers;
 import com.github.crautomation.core.ui.driver.drivers.ChromeImpl;
+import com.github.crautomation.core.ui.driver.drivers.FirefoxImpl;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -21,6 +22,11 @@ public class DriverFactory
             case CHROME:
                 final ChromeImpl chrome = new ChromeImpl();
                 driver = chrome.getDriver();
+                break;
+
+            case FIREFOX:
+                final FirefoxImpl firefox = new FirefoxImpl();
+                driver = firefox.getDriver();
                 break;
 
             default:

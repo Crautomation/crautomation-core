@@ -12,4 +12,6 @@ public abstract class DriverBase
     protected abstract Capabilities setBrowserCapabilities();
 
     protected abstract void setDriverPath();
+
+    protected abstract void suppressDriverOutputs();
 }

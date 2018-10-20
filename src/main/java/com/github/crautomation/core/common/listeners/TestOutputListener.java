@@ -15,7 +15,7 @@ public class TestOutputListener extends TestListenerAdapter
 {
     private void formatTestResultForOutput(final String resultType, final ITestResult tr)
     {
-        final String croppedTestName = tr.getInstanceName().replace("com.eposnow.testautomation.", "");
+        final String croppedTestName = tr.getInstanceName().replace("com.github.crautomation.", "");
         System.out.println(String.format("%s %s", DateHelper.getCurrentTime("HH:mm:ss"), resultType.concat(croppedTestName)));
     }
 
