@@ -5,13 +5,13 @@
 
     <groupId>com.github.crautomation</groupId>
     <artifactId>crautomation-core</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>crautomation-core</name>
     <description>
-        Crautomation-core
-        Base Framework for UI and API Testing
+        Crautomation-Core Testing Framework -
+        Base Framework for UI Testing
     </description>
-    <url>https://github.com/Frameworkium/frameworkium-core</url>
+    <url>https://github.com/Crautomation/crautomation-core</url>
     <inceptionYear>2018</inceptionYear>
 
     <properties>

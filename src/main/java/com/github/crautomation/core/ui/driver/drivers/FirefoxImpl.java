@@ -30,6 +30,8 @@ public class FirefoxImpl extends DriverBase
     @Override
     protected void generateDriverConfig()
     {
+        suppressDriverOutputs();
+
         if(TestPlatform.isGrid())
         {
             driver = ThreadGuard.protect(Objects.requireNonNull(RemoteDriverImpl.getRemoteWebDriver(setBrowserCapabilities())));

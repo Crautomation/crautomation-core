@@ -8,8 +8,11 @@ import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * LoggerListener
@@ -47,6 +50,10 @@ public class LoggerListener extends TestListenerAdapter
         try
         {
             return new String(Files.readAllBytes(new File(CustomResources.LOG_LOCATION.concat(logFileName).concat(".log")).toPath()));
+        }
+        catch (FileNotFoundException fnf)
+        {
+            assertThat("Unable to find log file, is your -Dproject.builddir set correctly?", false);
         }
         catch (IOException e)
         {
