@@ -3,7 +3,6 @@ package com.github.crautomation.core.ui.test;
 import com.github.crautomation.core.common.listeners.LoggerListener;
 import com.github.crautomation.core.common.listeners.TestOutputListener;
 import com.github.crautomation.core.common.test.BaseTest;
-import com.github.crautomation.core.common.testplatform.TestPlatform;
 import com.github.crautomation.core.ui.driver.DriverFactory;
 import com.github.crautomation.core.ui.listeners.DriverEventListener;
 import com.github.crautomation.core.ui.listeners.ScreenshotListener;
@@ -34,7 +33,7 @@ public class BaseUITestCase extends BaseTest
 
     private static final DriverFactory driverFactory = new DriverFactory();
 
-    private static EventFiringWebDriver e_driver = null;
+    private static EventFiringWebDriver eDriver = null;
 
     private static DriverEventListener eventListener;
 
@@ -57,8 +56,6 @@ public class BaseUITestCase extends BaseTest
 
         setImplicitTimeout();
 
-        maximiseBrowserWindow();
-
         super.setup();
     }
 
@@ -70,7 +67,7 @@ public class BaseUITestCase extends BaseTest
     {
         final WebDriver driver = getDriver();
 
-        e_driver.unregister(eventListener);
+        eDriver.unregister(eventListener);
 
         if (driver != null)
         {
@@ -94,28 +91,18 @@ public class BaseUITestCase extends BaseTest
     private void generateWebDriver()
     {
         try {
-            e_driver = new EventFiringWebDriver(driverFactory.generateDriver());
+            eDriver = new EventFiringWebDriver(driverFactory.generateDriver());
 
             eventListener = new DriverEventListener();
 
-            e_driver.register(eventListener);
+            eDriver.register(eventListener);
 
-            threadLocalDriver.set(e_driver);
+            threadLocalDriver.set(eDriver);
 
         } catch (final Exception e)
         {
             e.printStackTrace();
             assertThat("Driver generation problem encountered", false);
-        }
-    }
-
-    /**
-     * Maximises the browser window on start-up, used for Screenshot formatting
-     */
-    private void maximiseBrowserWindow()
-    {
-        if(TestPlatform.isLocal()) {
-            getDriver().manage().window().maximize();
         }
     }
 
@@ -133,6 +120,14 @@ public class BaseUITestCase extends BaseTest
      * @return EventFiringWebDriver object
      */
     public WebDriver getDriver()
+    {
+        return threadLocalDriver.get();
+    }
+
+    /**
+     * Static return of the current threadLocalDriver
+     */
+    public static WebDriver getWebDriver()
     {
         return threadLocalDriver.get();
     }

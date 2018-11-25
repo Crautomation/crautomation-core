@@ -52,9 +52,8 @@ public class LoggerFactory
                 level = Level.TRACE;
                 break;
             default:
-                level = Level.INFO;
-                System.out.println("[WARNING] Incompatible logging level provided. Defaulted to INFO");
-                break;
+                throw new IllegalArgumentException(String.format("Log level: %s does " +
+                        "not match the available options, aborting.", logLevel.toUpperCase()));
         }
         return level;
     }

@@ -25,7 +25,6 @@ public class ChromeImpl extends DriverBase
     /**
      * Determines the running platform and assigns a ChromeDriver/RemoteWebDriver with the appropriate ChromeOptions
      */
-    @Override
     protected void generateDriverConfig()
     {
         suppressDriverOutputs();
@@ -36,7 +35,7 @@ public class ChromeImpl extends DriverBase
         }
         else
         {
-            setDriverPath();
+            setupDriverConfig();
             driver = ThreadGuard.protect(new ChromeDriver(setBrowserCapabilities()));
         }
     }
@@ -50,7 +49,6 @@ public class ChromeImpl extends DriverBase
      *
      * @return ChromeOptions object containing browser configurations
      */
-    @Override
     protected ChromeOptions setBrowserCapabilities() {
 
         final ChromeOptions chromeOptions = new ChromeOptions();
@@ -66,8 +64,7 @@ public class ChromeImpl extends DriverBase
     /**
      * Sets the system property for the local chromedriver.exe path
      */
-    @Override
-    protected void setDriverPath()
+    protected void setupDriverConfig()
     {
         System.setProperty(CustomResources.CHROME_DRIVER_PROPERTY, CustomResources.CHROME_DRIVER_PATH);
     }
@@ -76,7 +73,6 @@ public class ChromeImpl extends DriverBase
     /**
      * Suppresses the Chrome outputs in the console during test execution.
      */
-    @Override
     protected void suppressDriverOutputs()
     {
         System.setProperty("webdriver.chrome.silentOutput", "true");

@@ -23,9 +23,9 @@ public abstract class BasePageObject<T extends BasePageObject<T>>
     protected WebDriver driver;
     protected SizzleSelector sizzle;
 
-    public BasePageObject(final WebDriver driver)
+    public BasePageObject()
     {
-        this.driver = driver;
+        this.driver = BaseUITestCase.getWebDriver();
 
         this.sizzle = new SizzleSelector(this.driver);
     }

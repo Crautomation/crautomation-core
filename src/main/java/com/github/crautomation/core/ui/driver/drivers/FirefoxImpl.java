@@ -27,7 +27,6 @@ public class FirefoxImpl extends DriverBase
     /**
      * Determines the running platform and assigns a FirefoxDriver/RemoteWebDriver with the appropriate FirefoxOptions
      */
-    @Override
     protected void generateDriverConfig()
     {
         suppressDriverOutputs();
@@ -38,7 +37,7 @@ public class FirefoxImpl extends DriverBase
         }
         else
         {
-            setDriverPath();
+            setupDriverConfig();
             driver = ThreadGuard.protect(new FirefoxDriver(setBrowserCapabilities()));
         }
     }
@@ -52,7 +51,6 @@ public class FirefoxImpl extends DriverBase
      *
      * @return FirefoxOptions object containing browser configurations
      */
-    @Override
     protected FirefoxOptions setBrowserCapabilities() {
 
         final FirefoxOptions firefoxOptions = new FirefoxOptions();
@@ -65,15 +63,13 @@ public class FirefoxImpl extends DriverBase
     /**
      * Sets the system property for the local geckodriver.exe path
      */
-    @Override
-    protected void setDriverPath() {
+    protected void setupDriverConfig() {
         System.setProperty(CustomResources.FIREFOX_DRIVER_PROPERTY, CustomResources.FIREFOX_DRIVER_PATH);
     }
 
     /**
      * Suppresses the Firefox/Marionette outputs in the console during test execution.
      */
-    @Override
     protected void suppressDriverOutputs()
     {
         System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");

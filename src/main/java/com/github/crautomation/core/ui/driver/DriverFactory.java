@@ -30,9 +30,8 @@ public class DriverFactory
                 break;
 
             default:
-                throw new IllegalArgumentException("No driver created for ["
-                        + browser.toString()
-                        + "]. Type not recognised, unable to continue.");
+                throw new IllegalArgumentException(String.format("No driver created for [%s]" +
+                        ". Type not recognised, unable to continue.", browser.toString()));
         }
 
         return driver;
