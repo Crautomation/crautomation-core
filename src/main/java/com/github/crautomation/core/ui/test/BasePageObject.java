@@ -95,7 +95,7 @@ public abstract class BasePageObject<T extends BasePageObject<T>>
         initElements();
 
         try {
-            new WebDriverWait(driver, 30).pollingEvery(Duration.ofMillis(500))
+            new WebDriverWait(driver, Duration.ofSeconds(30)).pollingEvery(Duration.ofMillis(500))
                     .until(ExpectedConditions.visibilityOf(webElement));
         }
         catch (Exception e) {

@@ -33,8 +33,6 @@ public class BaseUITestCase extends BaseTest
 
     private static final DriverFactory driverFactory = new DriverFactory();
 
-    private static EventFiringWebDriver eDriver = null;
-
     private static DriverEventListener eventListener;
 
     @BeforeSuite(alwaysRun = true)
@@ -67,8 +65,6 @@ public class BaseUITestCase extends BaseTest
     {
         final WebDriver driver = getDriver();
 
-        eDriver.unregister(eventListener);
-
         if (driver != null)
         {
             driver.quit();
@@ -91,13 +87,9 @@ public class BaseUITestCase extends BaseTest
     private void generateWebDriver()
     {
         try {
-            eDriver = new EventFiringWebDriver(driverFactory.generateDriver());
+            WebDriver webDriver = driverFactory.generateDriver();
 
-            eventListener = new DriverEventListener();
-
-            eDriver.register(eventListener);
-
-            threadLocalDriver.set(eDriver);
+            threadLocalDriver.set(webDriver);
 
         } catch (final Exception e)
         {

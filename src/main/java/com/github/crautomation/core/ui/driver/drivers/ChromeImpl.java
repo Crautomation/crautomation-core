@@ -35,7 +35,7 @@ public class ChromeImpl extends DriverBase
     {
         suppressDriverOutputs();
 
-        if(TestPlatform.isGrid())
+        if(!TestPlatform.getTestPlatform().getUrl().isEmpty())
         {
             driver = ThreadGuard.protect(Objects.requireNonNull(RemoteDriverImpl.getRemoteWebDriver(setBrowserCapabilities())));
         }
@@ -59,10 +59,10 @@ public class ChromeImpl extends DriverBase
 
         final ChromeOptions chromeOptions = new ChromeOptions();
 
-        chromeOptions.setCapability("acceptSslCerts", true);
-        chromeOptions.setCapability("takeScreenshot", true);
-        chromeOptions.setCapability("cssSelectorsEnabled", true);
-        chromeOptions.setCapability("chrome.switches", "--no-default-browser-check");
+//        chromeOptions.setCapability("acceptSslCerts", true);
+//        chromeOptions.setCapability("takeScreenshot", true);
+//        chromeOptions.setCapability("cssSelectorsEnabled", true);
+//        chromeOptions.setCapability("chrome.switches", "--no-default-browser-check");
 
         return chromeOptions;
     }
