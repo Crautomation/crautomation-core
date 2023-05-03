@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.is;
 public enum SystemProperty
 {
     // Runtime Arguments
-    PROJECT_BUILD_DIRECTORY("project.builddir", null),
+    PROJECT_BUILD_DIRECTORY("project.builddir", System.getProperty("user.dir").concat("/target")),
     BROWSER("browser", SupportedBrowsers.CHROME.toString()),
     TEST_PLATFORM("test.platform", TestPlatforms.LOCAL.getName()),
     LOG_LEVEL("log.level", "INFO");

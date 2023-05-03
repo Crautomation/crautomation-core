@@ -2,13 +2,19 @@ package com.github.crautomation.core.ui.driver.drivers;
 
 import com.github.crautomation.core.common.properties.constants.CustomResources;
 import com.github.crautomation.core.common.testplatform.TestPlatform;
+import com.github.crautomation.core.common.util.PropertiesReader;
 import com.github.crautomation.core.ui.driver.DriverBase;
+import com.github.crautomation.core.ui.driver.constants.OperatingSystem;
+import com.github.crautomation.core.ui.util.OS;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ThreadGuard;
 
+import java.io.File;
 import java.util.Objects;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Implementation for the ChromeDriver
@@ -66,7 +72,24 @@ public class ChromeImpl extends DriverBase
      */
     protected void setupDriverConfig()
     {
-        System.setProperty(CustomResources.CHROME_DRIVER_PROPERTY, CustomResources.CHROME_DRIVER_PATH);
+        final OperatingSystem os = OS.determine();
+        String completeDriverPath = "drivers/chromedriver_";
+
+        switch(os)
+        {
+            case MAC:
+                completeDriverPath = completeDriverPath.concat(OperatingSystem.MAC.toString().toLowerCase());
+                break;
+            case WINDOWS:
+                completeDriverPath = completeDriverPath.concat(OperatingSystem.WINDOWS.toString().toLowerCase().concat(".exe"));
+                break;
+            default:
+                assertThat("Unable to determine current platform, aborting.", false);
+        }
+
+        final File file = PropertiesReader.readFile(completeDriverPath);
+
+        System.setProperty("webdriver.chrome.driver", file.toString());
     }
 
 

@@ -2,15 +2,21 @@ package com.github.crautomation.core.ui.driver.drivers;
 
 import com.github.crautomation.core.common.properties.constants.CustomResources;
 import com.github.crautomation.core.common.testplatform.TestPlatform;
+import com.github.crautomation.core.common.util.PropertiesReader;
 import com.github.crautomation.core.ui.driver.DriverBase;
+import com.github.crautomation.core.ui.driver.constants.OperatingSystem;
+import com.github.crautomation.core.ui.util.OS;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ThreadGuard;
 
+import java.io.File;
 import java.util.Objects;
 import java.util.logging.Level;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Implementation for the Firefox GeckoDriver
@@ -63,8 +69,26 @@ public class FirefoxImpl extends DriverBase
     /**
      * Sets the system property for the local geckodriver.exe path
      */
-    protected void setupDriverConfig() {
-        System.setProperty(CustomResources.FIREFOX_DRIVER_PROPERTY, CustomResources.FIREFOX_DRIVER_PATH);
+    protected void setupDriverConfig()
+    {
+        final OperatingSystem os = OS.determine();
+        String completeDriverPath = "drivers/geckodriver_";
+
+        switch(os)
+        {
+            case MAC:
+                completeDriverPath = completeDriverPath.concat(OperatingSystem.MAC.toString().toLowerCase());
+                break;
+            case WINDOWS:
+                completeDriverPath = completeDriverPath.concat(OperatingSystem.WINDOWS.toString().toLowerCase().concat(".exe"));
+                break;
+            default:
+                assertThat("Unable to determine current platform, aborting.", false);
+        }
+
+        final File file = PropertiesReader.readFile(completeDriverPath);
+
+        System.setProperty("webdriver.gecko.driver", file.toString());
     }
 
     /**

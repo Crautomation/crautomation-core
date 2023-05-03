@@ -7,10 +7,6 @@ import static com.github.crautomation.core.common.properties.SystemProperty.PROJ
  */
 public class CustomResources
 {
-    // Chrome Browser
-    public static final String CHROME_DRIVER_PROPERTY = "webdriver.chrome.driver";
-    public static final String CHROME_DRIVER_PATH = "C:\\AutomationDrivers\\chromedriver.exe";
-
     // Firefox Browser
     public static final String FIREFOX_DRIVER_PROPERTY = "webdriver.gecko.driver";
     public static final String FIREFOX_DRIVER_PATH = "C:\\AutomationDrivers\\geckodriver.exe";

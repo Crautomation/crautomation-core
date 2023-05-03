@@ -111,7 +111,7 @@ public class BaseUITestCase extends BaseTest
      */
     private void setImplicitTimeout()
     {
-        getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     /**
