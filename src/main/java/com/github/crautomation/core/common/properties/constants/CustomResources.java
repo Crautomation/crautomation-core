@@ -5,8 +5,7 @@ import static com.github.crautomation.core.common.properties.SystemProperty.PROJ
 /**
  * System Wide CustomResources
  */
-public class CustomResources
-{
+public class CustomResources {
     // Firefox Browser
     public static final String FIREFOX_DRIVER_PROPERTY = "webdriver.gecko.driver";
     public static final String FIREFOX_DRIVER_PATH = "C:\\AutomationDrivers\\geckodriver.exe";

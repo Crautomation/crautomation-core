@@ -15,17 +15,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Returns a RemoteWebDriver instance with the provided Capabilities for running against Selenium Grid.
  */
-class RemoteDriverImpl
-{
+class RemoteDriverImpl {
     /**
      * Returns a RemoteWebDriver object with the defined capabilities attached.
      */
-    static RemoteWebDriver getRemoteWebDriver(final Capabilities capabilities)
-    {
+    static RemoteWebDriver getRemoteWebDriver(final Capabilities capabilities) {
         final Logger log = LogManager.getLogger();
 
-        try
-        {
+        try {
             final RemoteWebDriver remoteWebDriver =
                     new RemoteWebDriver(new URL(TestPlatforms.GRID.getUrl()), capabilities);
 
@@ -33,9 +30,7 @@ class RemoteDriverImpl
                     + SeleniumNode.getConnectionDetails(remoteWebDriver) + "]");
 
             return remoteWebDriver;
-        }
-        catch (final MalformedURLException e)
-        {
+        } catch (final MalformedURLException e) {
             assertThat("Selenium hub address is in an unrecognised format, exception caught:" + e.toString(), false);
         }
 

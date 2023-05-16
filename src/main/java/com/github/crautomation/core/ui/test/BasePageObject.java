@@ -13,18 +13,16 @@ import java.time.Duration;
 
 /**
  * <p>BasePageObject</p>
- *
+ * <p>
  * Class that simplifies Page Object classes. It contains basic driver and logging functionality
  * in addition to common UI interaction methods.
  */
-public abstract class BasePageObject<T extends BasePageObject<T>>
-{
+public abstract class BasePageObject<T extends BasePageObject<T>> {
     protected final Logger log = LogManager.getLogger(this);
     protected WebDriver driver;
     protected SizzleSelector sizzle;
 
-    public BasePageObject()
-    {
+    public BasePageObject() {
         this.driver = BaseUITestCase.getWebDriver();
 
         this.sizzle = new SizzleSelector(this.driver);
@@ -35,8 +33,7 @@ public abstract class BasePageObject<T extends BasePageObject<T>>
      *
      * @return WebDriver object
      */
-    protected WebDriver getDriver()
-    {
+    protected WebDriver getDriver() {
         return this.driver;
     }
 
@@ -45,8 +42,7 @@ public abstract class BasePageObject<T extends BasePageObject<T>>
      *
      * @return SizzleSelector object
      */
-    protected SizzleSelector getSizzle()
-    {
+    protected SizzleSelector getSizzle() {
         return this.sizzle;
     }
 
@@ -54,8 +50,7 @@ public abstract class BasePageObject<T extends BasePageObject<T>>
      * Matches Selectors defined in @FindBy WebElement definitions
      * and maps them to their variable.
      */
-    protected void initElements()
-    {
+    protected void initElements() {
         PageFactory.initElements(driver, this);
     }
 
@@ -65,8 +60,7 @@ public abstract class BasePageObject<T extends BasePageObject<T>>
      *
      * @param frameId String frame ID
      */
-    protected void switchToFrame(final String frameId)
-    {
+    protected void switchToFrame(final String frameId) {
         getDriver().switchTo().frame(frameId);
 
         initElements();
@@ -75,8 +69,7 @@ public abstract class BasePageObject<T extends BasePageObject<T>>
     /**
      * Method required to counteract the changes made in later versions of FF where it doesn't save DOM references on page-reloads.
      */
-    protected void reloadDom()
-    {
+    protected void reloadDom() {
         getDriver().switchTo().defaultContent();
 
         initElements();
@@ -85,20 +78,17 @@ public abstract class BasePageObject<T extends BasePageObject<T>>
     /**
      * Periodically checks the page for the expected WebElement
      *
-     * @param driver current WebDriver instance
+     * @param driver     current WebDriver instance
      * @param webElement element which is expected on the page
-     *
      * @return true/false if element becomes visible
      */
-    protected boolean waitForElementToBeVisible(final WebDriver driver, final WebElement webElement)
-    {
+    protected boolean waitForElementToBeVisible(final WebDriver driver, final WebElement webElement) {
         initElements();
 
         try {
             new WebDriverWait(driver, Duration.ofSeconds(30)).pollingEvery(Duration.ofMillis(500))
                     .until(ExpectedConditions.visibilityOf(webElement));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.debug(String.format("WebElement %s was not found.", webElement), e);
             return false;
         }

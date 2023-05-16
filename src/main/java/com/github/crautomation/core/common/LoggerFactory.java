@@ -7,27 +7,16 @@ import org.apache.logging.log4j.ThreadContext;
 
 /**
  * Factory class for Log instances.
- *
+ * <p>
  * Contains all the functionality for obtaining and setting the desired logging level, setting the logfile name
  * and doing thread-based matching of file -> logger instance.
  **/
-public class LoggerFactory
-{
+public class LoggerFactory {
     private String loggerFileName;
     private String testName;
 
-    public LoggerFactory(final String testName)
-    {
+    public LoggerFactory(final String testName) {
         this.testName = testName;
-    }
-
-    public String setupThreadLogger()
-    {
-        setLoggerFileName();
-
-        setThreadContextName();
-
-        return loggerFileName;
     }
 
     /**
@@ -36,12 +25,10 @@ public class LoggerFactory
      * @param logLevel - String value log level
      * @return Level.OFF/INFO/DEBUG/TRACE
      */
-    public static Level getTestLogLevel(final String logLevel)
-    {
+    public static Level getTestLogLevel(final String logLevel) {
         Level level = null;
 
-        switch(logLevel.toUpperCase())
-        {
+        switch (logLevel.toUpperCase()) {
             case "INFO":
                 level = Level.INFO;
                 break;
@@ -58,19 +45,25 @@ public class LoggerFactory
         return level;
     }
 
+    public String setupThreadLogger() {
+        setLoggerFileName();
+
+        setThreadContextName();
+
+        return loggerFileName;
+    }
+
     /**
      * Sets the thread context to match the logger file to the thread
      */
-    private void setThreadContextName()
-    {
+    private void setThreadContextName() {
         ThreadContext.put("threadName", loggerFileName);
     }
 
     /**
      * Sets the thread-specific Logger file name
      */
-    private void setLoggerFileName()
-    {
+    private void setLoggerFileName() {
         loggerFileName = generateFormattedLogFileName();
 
         final Logger log = LogManager.getLogger();
@@ -80,8 +73,7 @@ public class LoggerFactory
     /**
      * Formats the log file name into a more readable format.
      */
-    private String generateFormattedLogFileName()
-    {
+    private String generateFormattedLogFileName() {
         String name = testName.replace("com.github.crautomation.", "");
 
         String threadNumber = Thread.currentThread().getName()

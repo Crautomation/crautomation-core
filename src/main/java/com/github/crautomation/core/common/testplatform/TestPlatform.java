@@ -8,15 +8,13 @@ import org.apache.logging.log4j.Logger;
 /**
  * Contains methods for identifying which platform the tests are running against.
  */
-public class TestPlatform
-{
+public class TestPlatform {
     /**
      * Confirms if the current tests are running against the Selenium Grid.
      *
      * @return true/false
      */
-    public static boolean isGrid()
-    {
+    public static boolean isGrid() {
         return SystemProperty.TEST_PLATFORM.getValue().equalsIgnoreCase(TestPlatforms.GRID.getName());
     }
 
@@ -25,8 +23,7 @@ public class TestPlatform
      *
      * @return true/false
      */
-    public static boolean isLocal()
-    {
+    public static boolean isLocal() {
         return SystemProperty.TEST_PLATFORM.getValue().equalsIgnoreCase(TestPlatforms.LOCAL.getName());
     }
 
@@ -35,17 +32,13 @@ public class TestPlatform
      *
      * @return TestPlatforms.LOCAL/TestPlatforms.GRID
      */
-    public static TestPlatforms getTestPlatform()
-    {
+    public static TestPlatforms getTestPlatform() {
         final Logger logger = LogManager.getLogger();
 
-        if(isGrid())
-        {
+        if (isGrid()) {
             logger.debug("Current test platform: Selenium Grid");
             return TestPlatforms.GRID;
-        }
-        else
-        {
+        } else {
             logger.debug("Current test platform: Local");
             return TestPlatforms.LOCAL;
         }

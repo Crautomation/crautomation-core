@@ -9,7 +9,6 @@ import com.github.crautomation.core.ui.listeners.ScreenshotListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -22,25 +21,29 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * <p>Base UI Test Case</p>
- *
+ * <p>
  * Class that manages the core actions at runtime for each UI Test.
  * Contains controllers around the WebDriver, Logging, Screenshots and reporting.
  */
 @Listeners({TestOutputListener.class, LoggerListener.class, ScreenshotListener.class})
-public class BaseUITestCase extends BaseTest
-{
+public class BaseUITestCase extends BaseTest {
     private static final ThreadLocal<WebDriver> threadLocalDriver = ThreadLocal.withInitial(() -> null);
 
     private static final DriverFactory driverFactory = new DriverFactory();
 
     private static DriverEventListener eventListener;
 
-    @BeforeSuite(alwaysRun = true)
-    protected void preSuite()
-    {
-        java.util.logging.Logger.getLogger("org.openqa.selenium.remote").setLevel(Level.SEVERE);
+    /**
+     * Static return of the current threadLocalDriver
+     */
+    public static WebDriver getWebDriver() {
+        return threadLocalDriver.get();
     }
 
+    @BeforeSuite(alwaysRun = true)
+    protected void preSuite() {
+        java.util.logging.Logger.getLogger("org.openqa.selenium.remote").setLevel(Level.SEVERE);
+    }
 
     /**
      * Generates the appropriate WebDriver and feeds it into a ThreadSafe driver
@@ -48,8 +51,7 @@ public class BaseUITestCase extends BaseTest
      */
     @Override
     @BeforeMethod(alwaysRun = true)
-    protected void setup()
-    {
+    protected void setup() {
         generateWebDriver();
 
         setImplicitTimeout();
@@ -61,20 +63,16 @@ public class BaseUITestCase extends BaseTest
      * Attempts to clear the WebDriver and ThreadLocal instances from memory.
      */
     @AfterMethod(alwaysRun = true)
-    protected void tearDown()
-    {
+    protected void tearDown() {
         final WebDriver driver = getDriver();
 
-        if (driver != null)
-        {
+        if (driver != null) {
             driver.quit();
         }
 
         try {
             threadLocalDriver.remove();
-        }
-        catch (final Exception e)
-        {
+        } catch (final Exception e) {
             final Logger log = LogManager.getLogger();
             log.debug("Unable to remove driver object from ThreadLocal", e);
         }
@@ -84,15 +82,13 @@ public class BaseUITestCase extends BaseTest
      * Creates an initial ThreadSafe, WebDriver instance based on the Capabilities defined in the
      * DriverFactory
      */
-    private void generateWebDriver()
-    {
+    private void generateWebDriver() {
         try {
             WebDriver webDriver = driverFactory.generateDriver();
 
             threadLocalDriver.set(webDriver);
 
-        } catch (final Exception e)
-        {
+        } catch (final Exception e) {
             e.printStackTrace();
             assertThat("Driver generation problem encountered", false);
         }
@@ -101,8 +97,7 @@ public class BaseUITestCase extends BaseTest
     /**
      * Sets the implicit time out to the driver on test setup.
      */
-    private void setImplicitTimeout()
-    {
+    private void setImplicitTimeout() {
         getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
@@ -111,16 +106,7 @@ public class BaseUITestCase extends BaseTest
      *
      * @return EventFiringWebDriver object
      */
-    public WebDriver getDriver()
-    {
-        return threadLocalDriver.get();
-    }
-
-    /**
-     * Static return of the current threadLocalDriver
-     */
-    public static WebDriver getWebDriver()
-    {
+    public WebDriver getDriver() {
         return threadLocalDriver.get();
     }
 }

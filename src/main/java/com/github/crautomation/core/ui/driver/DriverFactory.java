@@ -9,16 +9,13 @@ import org.openqa.selenium.WebDriver;
 /**
  * Determines which browser is being used and sets the driver accordingly.
  */
-public class DriverFactory
-{
-    public synchronized WebDriver generateDriver()
-    {
+public class DriverFactory {
+    public synchronized WebDriver generateDriver() {
         final SupportedBrowsers browser = SupportedBrowsers.valueOf(SystemProperty.BROWSER.getValue().toUpperCase());
 
         WebDriver driver;
 
-        switch (browser)
-        {
+        switch (browser) {
             case CHROME:
                 final ChromeImpl chrome = new ChromeImpl();
                 driver = chrome.getDriver();

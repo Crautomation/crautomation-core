@@ -1,6 +1,5 @@
 package com.github.crautomation.core.ui.driver.drivers;
 
-import com.github.crautomation.core.common.properties.constants.CustomResources;
 import com.github.crautomation.core.common.testplatform.TestPlatform;
 import com.github.crautomation.core.common.util.PropertiesReader;
 import com.github.crautomation.core.ui.driver.DriverBase;
@@ -19,28 +18,22 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Implementation for the ChromeDriver
  */
-public class ChromeImpl extends DriverBase
-{
+public class ChromeImpl extends DriverBase {
     private WebDriver driver;
 
-    public ChromeImpl()
-    {
+    public ChromeImpl() {
         generateDriverConfig();
     }
 
     /**
      * Determines the running platform and assigns a ChromeDriver/RemoteWebDriver with the appropriate ChromeOptions
      */
-    protected void generateDriverConfig()
-    {
+    protected void generateDriverConfig() {
         suppressDriverOutputs();
 
-        if(!TestPlatform.getTestPlatform().getUrl().isEmpty())
-        {
+        if (!TestPlatform.getTestPlatform().getUrl().isEmpty()) {
             driver = ThreadGuard.protect(Objects.requireNonNull(RemoteDriverImpl.getRemoteWebDriver(setBrowserCapabilities())));
-        }
-        else
-        {
+        } else {
             setupDriverConfig();
             driver = ThreadGuard.protect(new ChromeDriver(setBrowserCapabilities()));
         }
@@ -70,13 +63,11 @@ public class ChromeImpl extends DriverBase
     /**
      * Sets the system property for the local chromedriver.exe path
      */
-    protected void setupDriverConfig()
-    {
+    protected void setupDriverConfig() {
         final OperatingSystem os = OS.determine();
         String completeDriverPath = "drivers/chromedriver_";
 
-        switch(os)
-        {
+        switch (os) {
             case MAC:
                 completeDriverPath = completeDriverPath.concat(OperatingSystem.MAC.toString().toLowerCase());
                 break;
@@ -96,8 +87,7 @@ public class ChromeImpl extends DriverBase
     /**
      * Suppresses the Chrome outputs in the console during test execution.
      */
-    protected void suppressDriverOutputs()
-    {
+    protected void suppressDriverOutputs() {
         System.setProperty("webdriver.chrome.silentOutput", "true");
     }
 }

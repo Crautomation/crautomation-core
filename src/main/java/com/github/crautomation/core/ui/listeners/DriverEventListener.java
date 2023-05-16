@@ -15,8 +15,7 @@ import java.util.regex.Pattern;
  * Listener registers to a EventFiringWebDriver instance and records TRACE
  * level logging for the events that are fired.
  */
-public class DriverEventListener implements WebDriverEventListener
-{
+public class DriverEventListener implements WebDriverEventListener {
     private final Logger log = LogManager.getLogger();
 
     @Override
@@ -40,74 +39,62 @@ public class DriverEventListener implements WebDriverEventListener
     }
 
     @Override
-    public void beforeNavigateTo(final String url, final WebDriver webDriver)
-    {
+    public void beforeNavigateTo(final String url, final WebDriver webDriver) {
         log.trace("Attempting to navigate to url: " + url);
     }
 
     @Override
-    public void afterNavigateTo(final String url, final WebDriver webDriver)
-    {
+    public void afterNavigateTo(final String url, final WebDriver webDriver) {
         log.trace("Successfully navigated to url: " + url);
     }
 
     @Override
-    public void beforeNavigateBack(final WebDriver webDriver)
-    {
+    public void beforeNavigateBack(final WebDriver webDriver) {
         log.trace("Attempting to navigate back.");
     }
 
     @Override
-    public void afterNavigateBack(final WebDriver webDriver)
-    {
+    public void afterNavigateBack(final WebDriver webDriver) {
         log.trace("Successfully navigated back.");
     }
 
     @Override
-    public void beforeNavigateForward(final WebDriver webDriver)
-    {
+    public void beforeNavigateForward(final WebDriver webDriver) {
         log.trace("Attempting to navigate forward.");
     }
 
     @Override
-    public void afterNavigateForward(final WebDriver webDriver)
-    {
+    public void afterNavigateForward(final WebDriver webDriver) {
         log.trace("Successfully navigated forward.");
     }
 
     @Override
-    public void beforeNavigateRefresh(final WebDriver webDriver)
-    {
+    public void beforeNavigateRefresh(final WebDriver webDriver) {
         log.trace("Attempting to refresh the page.");
     }
 
     @Override
-    public void afterNavigateRefresh(final WebDriver webDriver)
-    {
+    public void afterNavigateRefresh(final WebDriver webDriver) {
         log.trace("Successfully refreshed the page.");
     }
 
     @Override
-    public void beforeFindBy(final By by, final WebElement webElement, final WebDriver webDriver)
-    {
+    public void beforeFindBy(final By by, final WebElement webElement, final WebDriver webDriver) {
         log.trace("Attempting to find element: " + by);
     }
 
     @Override
-    public void afterFindBy(final By by, final WebElement webElement, final WebDriver webDriver)
-    {
+    public void afterFindBy(final By by, final WebElement webElement, final WebDriver webDriver) {
         log.trace("Successfully found element: " + by);
     }
 
     @Override
-    public void beforeClickOn(final WebElement webElement, final WebDriver webDriver)
-    {
+    public void beforeClickOn(final WebElement webElement, final WebDriver webDriver) {
         log.trace("Attempting to click element: " + getLocatorFromElement(webElement));
     }
 
     @Override
-    public void afterClickOn(final WebElement webElement, final WebDriver webDriver)
-    {
+    public void afterClickOn(final WebElement webElement, final WebDriver webDriver) {
         log.trace("Successfully clicked element: " + getLocatorFromElement(webElement));
     }
 
@@ -122,14 +109,12 @@ public class DriverEventListener implements WebDriverEventListener
     }
 
     @Override
-    public void beforeScript(final String script, final WebDriver webDriver)
-    {
+    public void beforeScript(final String script, final WebDriver webDriver) {
         log.trace("Starting script: " + script);
     }
 
     @Override
-    public void afterScript(final String script, final WebDriver webDriver)
-    {
+    public void afterScript(final String script, final WebDriver webDriver) {
         log.trace("Completed script: " + script);
     }
 
@@ -144,8 +129,7 @@ public class DriverEventListener implements WebDriverEventListener
     }
 
     @Override
-    public void onException(final Throwable throwable, final WebDriver webDriver)
-    {
+    public void onException(final Throwable throwable, final WebDriver webDriver) {
         log.trace("Exception thrown: " + throwable);
     }
 
@@ -169,8 +153,7 @@ public class DriverEventListener implements WebDriverEventListener
         log.trace("Successfully to got the text: " + webElement.getText());
     }
 
-    private String getLocatorFromElement(final WebElement element)
-    {
+    private String getLocatorFromElement(final WebElement element) {
         final String elementString = element.toString();
         final Pattern pattern = Pattern.compile("->\\s(.*)(?=\\])");
         final Matcher matcher = pattern.matcher(elementString);

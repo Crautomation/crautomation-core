@@ -13,8 +13,7 @@ import static org.hamcrest.Matchers.is;
  * Contains all the System Properties utilised in the framework, anything without a default value has a null value
  * which will fail runs without appropriate values set e.g. project.builddir
  */
-public enum SystemProperty
-{
+public enum SystemProperty {
     // Runtime Arguments
     PROJECT_BUILD_DIRECTORY("project.builddir", System.getProperty("user.dir").concat("/target")),
     BROWSER("browser", SupportedBrowsers.CHROME.toString()),
@@ -24,17 +23,13 @@ public enum SystemProperty
     private String value;
     private String propertyName;
 
-    SystemProperty(final String key, final String def)
-    {
+    SystemProperty(final String key, final String def) {
         propertyName = key;
 
-        if(def == null)
-        {
+        if (def == null) {
             this.value = System.getProperty(key);
-        }
-        else
-        {
-            this.value =  System.getProperty(key, def);
+        } else {
+            this.value = System.getProperty(key, def);
         }
     }
 
@@ -43,8 +38,7 @@ public enum SystemProperty
      *
      * @return String value system property
      */
-    public String getValue()
-    {
+    public String getValue() {
         validateProperty();
 
         final Logger log = LogManager.getLogger();
@@ -56,8 +50,7 @@ public enum SystemProperty
     /**
      * Asserts that the System Property is not an empty or null value
      */
-    private void validateProperty()
-    {
+    private void validateProperty() {
         assertThat(String.format("System Property -D%s is null, have you set the property?", propertyName), value, is(notNullValue()));
         assertThat(String.format("System Property -D%s is empty, have you set the property?", propertyName), value.isEmpty(), is(false));
     }

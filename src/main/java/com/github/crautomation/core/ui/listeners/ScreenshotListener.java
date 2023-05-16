@@ -13,21 +13,18 @@ import org.testng.TestListenerAdapter;
 
 /**
  * ScreenshotListener
- *
+ * <p>
  * Manages the screenshot capture and attaches to the Allure Report.
  */
-public class ScreenshotListener extends TestListenerAdapter
-{
+public class ScreenshotListener extends TestListenerAdapter {
     @Override
-    public synchronized void onTestFailure(final ITestResult failingTest)
-    {
+    public synchronized void onTestFailure(final ITestResult failingTest) {
         final Logger logger = LogManager.getLogger();
 
         try {
             logger.debug(String.format("Attempting to attach screenshot for failing test %s", failingTest.getName()));
             takeScreenshotAndAttachToReport(((BaseUITestCase) failingTest.getInstance()).getDriver());
-        } catch (final ClassCastException ex)
-        {
+        } catch (final ClassCastException ex) {
             logger.info("Unable to attach screenshot, unable to cast the WebDriver class", ex);
         }
     }
@@ -39,8 +36,7 @@ public class ScreenshotListener extends TestListenerAdapter
      * @return screenshot of a byte array
      */
     @Attachment(value = "Failure Screenshot")
-    private byte[] takeScreenshotAndAttachToReport(final WebDriver driver)
-    {
+    private byte[] takeScreenshotAndAttachToReport(final WebDriver driver) {
         ProminentStep.create("Attaching Screenshot to Report");
 
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);

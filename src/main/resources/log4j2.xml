@@ -3,7 +3,7 @@
     <Appenders>
         <!-- APPENDER 1: CONSOLE -->
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%d{dd-MMM HH:mm:ss:SSS}] - [%-5level] - %F:%L - %m%n" />
+            <PatternLayout pattern="[%d{dd-MMM HH:mm:ss:SSS}] - [%-5level] - %F:%L - %m%n"/>
         </Console>
 
         <!-- APPENDER 2: ROLLING FILE -->
@@ -13,8 +13,8 @@
                 <Pattern>[%d{dd-MMM HH:mm:ss:SSS}] - [%-5level] - %F:%L - %m%n</Pattern>
             </PatternLayout>
             <Policies>
-                <TimeBasedTriggeringPolicy />
-                <SizeBasedTriggeringPolicy size="10 MB" />
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
             </Policies>
         </RollingFile>
 
@@ -30,15 +30,15 @@
                             <Pattern>[%d{dd-MMM HH:mm:ss:SSS}] - [%-5level] - %F:%L - %m%n</Pattern>
                         </PatternLayout>
                         <Policies>
-                            <TimeBasedTriggeringPolicy />
-                            <SizeBasedTriggeringPolicy size="10 MB" />
+                            <TimeBasedTriggeringPolicy/>
+                            <SizeBasedTriggeringPolicy size="10 MB"/>
                         </Policies>
                     </RollingFile>
                 </Route>
 
                 <!-- Route Nr.2 fallback -->
                 <!-- By having this set to ${ctx:filename} it will match when filename is not set in the context -->
-                <Route ref="AppenderTwo" key="${ctx:threadName}" />
+                <Route ref="AppenderTwo" key="${ctx:threadName}"/>
             </Routes>
         </Routing>
 
@@ -47,12 +47,12 @@
     <Loggers>
 
         <Logger name="ConsoleLog" additivity="false" level="off">
-            <AppenderRef ref="Console" />
+            <AppenderRef ref="Console"/>
         </Logger>
 
         <Root level="off">
-            <AppenderRef ref="AppenderTwo" />
-            <AppenderRef ref="AppenderThree" />
+            <AppenderRef ref="AppenderTwo"/>
+            <AppenderRef ref="AppenderThree"/>
         </Root>
 
     </Loggers>

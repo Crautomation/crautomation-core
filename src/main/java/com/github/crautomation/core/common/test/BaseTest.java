@@ -12,20 +12,17 @@ import org.testng.annotations.BeforeMethod;
 /**
  * Superclass that forms the basis of all TestNG and unit tests
  */
-public class BaseTest
-{
+public class BaseTest {
     final protected Logger log = LogManager.getLogger();
     private String loggerFileName;
 
     @Before
-    public void suppressUnitTestLogging()
-    {
+    public void suppressUnitTestLogging() {
         setRootLoggingLevel(Level.OFF);
     }
 
     @BeforeMethod(alwaysRun = true)
-    protected void setup()
-    {
+    protected void setup() {
         setLoggerFileName();
 
         setRootLoggingLevel(LoggerFactory.getTestLogLevel(SystemProperty.LOG_LEVEL.getValue()));
@@ -36,8 +33,7 @@ public class BaseTest
      *
      * @return String logfile name for currently executing thread
      */
-    public String getLoggerFileName()
-    {
+    public String getLoggerFileName() {
         return loggerFileName;
     }
 
@@ -46,16 +42,14 @@ public class BaseTest
      *
      * @param level - Logging level
      */
-    private void setRootLoggingLevel(final Level level)
-    {
+    private void setRootLoggingLevel(final Level level) {
         Configurator.setRootLevel(level);
     }
 
     /**
      * Sets the name of the logfile for the current executing thread.
      */
-    private void setLoggerFileName()
-    {
+    private void setLoggerFileName() {
         loggerFileName = new LoggerFactory(getClass().getName()).setupThreadLogger();
     }
 }

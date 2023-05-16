@@ -6,11 +6,9 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.text.MatchesPattern.matchesPattern;
 
-public class DateHelperTest extends BaseTest
-{
+public class DateHelperTest extends BaseTest {
     @Test
-    public void shouldValidateCurrentTimeReturnsFormattedCorrectly()
-    {
+    public void shouldValidateCurrentTimeReturnsFormattedCorrectly() {
         final String formattedTime = DateHelper.getCurrentTime("HH:mm:SS");
 
         assertThat(formattedTime,

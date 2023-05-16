@@ -18,10 +18,10 @@ import java.util.NoSuchElementException;
 
 /**
  * <p>SizzleSelector</p>
- *
+ * <p>
  * Injects query Sizzle selector to the browser under test. Sizzle allows the mapping of WebElements
  * utilising jquery commands such as:
- *
+ * <p>
  * :contains("  ")
  * :nth-value(" ")
  * :first
@@ -30,8 +30,8 @@ import java.util.NoSuchElementException;
 @SuppressWarnings("unchecked")
 public class SizzleSelector {
 
-    private JavascriptExecutor driver;
     private final Logger logger = LogManager.getLogger();
+    private JavascriptExecutor driver;
 
     public SizzleSelector(final WebDriver webDriver) {
         driver = (JavascriptExecutor) webDriver;
@@ -69,13 +69,11 @@ public class SizzleSelector {
         return executeRemoteScript(javascriptExpression);
     }
 
-    private String createSizzleSelectorExpression(final String using)
-    {
+    private String createSizzleSelectorExpression(final String using) {
         return "return Sizzle(\"" + using + "\")";
     }
 
-    private List<WebElement> executeRemoteScript(final String javascriptExpression)
-    {
+    private List<WebElement> executeRemoteScript(final String javascriptExpression) {
         List<WebElement> list = null;
         JavascriptExecutor executor = driver;
 
@@ -91,8 +89,7 @@ public class SizzleSelector {
                         wde);
                 try {
                     Thread.sleep(500);
-                } catch (InterruptedException e)
-                {
+                } catch (InterruptedException e) {
                     logger.debug("Error:", e);
                 }
                 // Try to inject sizzle once more.
@@ -114,8 +111,7 @@ public class SizzleSelector {
     /**
      * Inject sizzle if needed.
      */
-    private void injectSizzleIfNeeded()
-    {
+    private void injectSizzleIfNeeded() {
         if (!sizzleLoaded()) {
             injectSizzle();
         } else {
@@ -153,8 +149,7 @@ public class SizzleSelector {
      *
      * @return the true if Sizzle is loaded in the web page
      */
-    private Boolean sizzleLoaded()
-    {
+    private Boolean sizzleLoaded() {
         Boolean loaded = true;
 
         try {
@@ -174,8 +169,7 @@ public class SizzleSelector {
     /**
      * Injects Sizzle from a local file.
      */
-    private void injectSizzle()
-    {
+    private void injectSizzle() {
         String scriptContent = null;
 
         try {

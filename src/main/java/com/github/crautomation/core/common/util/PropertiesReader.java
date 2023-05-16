@@ -13,23 +13,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Utility for reading resources as files.
  */
-public class PropertiesReader
-{
-    public static File readFile(final String property)
-    {
+public class PropertiesReader {
+    public static File readFile(final String property) {
         InputStream fileLoader = null;
         File file = new File(System.getProperty("user.dir")
                 + "/target/classes/" + property);
 
-        try
-        {
+        try {
             file.getParentFile().mkdirs();
             fileLoader = PropertiesReader.class.getClassLoader().getResourceAsStream(property);
             Files.write(file.toPath(), IOUtils.toByteArray(fileLoader), StandardOpenOption.CREATE);
             file.setExecutable(true);
-        }
-        catch(NullPointerException | IOException e)
-        {
+        } catch (NullPointerException | IOException e) {
             assertThat("Unable to load file, thrown".concat(e.toString()), false);
         }
 

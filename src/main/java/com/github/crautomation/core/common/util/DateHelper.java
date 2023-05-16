@@ -10,16 +10,14 @@ import java.util.Locale;
 /**
  * Utility Class for Date or Time related utility methods.
  */
-public class DateHelper
-{
+public class DateHelper {
     /**
      * Returns the current time in the format provided.
      *
      * @param pattern ISO 8601 Notation
      * @return current time in provided format
      */
-    public static String getCurrentTime(final String pattern)
-    {
+    public static String getCurrentTime(final String pattern) {
         final Logger logger = LogManager.getLogger();
         logger.debug(String.format(("Returning the current time using the ISO 8601 Notation format: %s"), pattern));
 

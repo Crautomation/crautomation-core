@@ -1,6 +1,5 @@
 package com.github.crautomation.core.ui.driver.drivers;
 
-import com.github.crautomation.core.common.properties.constants.CustomResources;
 import com.github.crautomation.core.common.testplatform.TestPlatform;
 import com.github.crautomation.core.common.util.PropertiesReader;
 import com.github.crautomation.core.ui.driver.DriverBase;
@@ -21,28 +20,22 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Implementation for the Firefox GeckoDriver
  */
-public class FirefoxImpl extends DriverBase
-{
+public class FirefoxImpl extends DriverBase {
     private WebDriver driver;
 
-    public FirefoxImpl()
-    {
+    public FirefoxImpl() {
         generateDriverConfig();
     }
 
     /**
      * Determines the running platform and assigns a FirefoxDriver/RemoteWebDriver with the appropriate FirefoxOptions
      */
-    protected void generateDriverConfig()
-    {
+    protected void generateDriverConfig() {
         suppressDriverOutputs();
 
-        if(TestPlatform.isGrid())
-        {
+        if (TestPlatform.isGrid()) {
             driver = ThreadGuard.protect(Objects.requireNonNull(RemoteDriverImpl.getRemoteWebDriver(setBrowserCapabilities())));
-        }
-        else
-        {
+        } else {
             setupDriverConfig();
             driver = ThreadGuard.protect(new FirefoxDriver(setBrowserCapabilities()));
         }
@@ -69,13 +62,11 @@ public class FirefoxImpl extends DriverBase
     /**
      * Sets the system property for the local geckodriver.exe path
      */
-    protected void setupDriverConfig()
-    {
+    protected void setupDriverConfig() {
         final OperatingSystem os = OS.determine();
         String completeDriverPath = "drivers/geckodriver_";
 
-        switch(os)
-        {
+        switch (os) {
             case MAC:
                 completeDriverPath = completeDriverPath.concat(OperatingSystem.MAC.toString().toLowerCase());
                 break;
@@ -94,8 +85,7 @@ public class FirefoxImpl extends DriverBase
     /**
      * Suppresses the Firefox/Marionette outputs in the console during test execution.
      */
-    protected void suppressDriverOutputs()
-    {
+    protected void suppressDriverOutputs() {
         System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
     }
 }
