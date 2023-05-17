@@ -1,6 +1,5 @@
 package com.github.crautomation.core.ui.test;
 
-import com.github.crautomation.core.common.listeners.LoggerListener;
 import com.github.crautomation.core.common.listeners.TestOutputListener;
 import com.github.crautomation.core.common.test.BaseTest;
 import com.github.crautomation.core.ui.driver.DriverFactory;
@@ -25,7 +24,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Class that manages the core actions at runtime for each UI Test.
  * Contains controllers around the WebDriver, Logging, Screenshots and reporting.
  */
-@Listeners({TestOutputListener.class, LoggerListener.class, ScreenshotListener.class})
+@Listeners({TestOutputListener.class, ScreenshotListener.class})
 public class BaseUITestCase extends BaseTest {
     private static final ThreadLocal<WebDriver> threadLocalDriver = ThreadLocal.withInitial(() -> null);
 
