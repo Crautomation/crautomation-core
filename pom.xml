@@ -5,7 +5,7 @@
 
     <groupId>com.github.crautomation</groupId>
     <artifactId>crautomation-core</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <name>crautomation-core</name>
     <description>
         Crautomation-Core Testing Framework -
